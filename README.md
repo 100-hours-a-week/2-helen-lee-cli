@@ -1,18 +1,11 @@
-## Getting Started
+# 카페 주문 프로그램, MOJI
+불친절한 키오스크로 인한 손님들의 끊임없는 요구사항과 카페 알바생의 절규와 바람이 담긴 음료 주문 & 메뉴얼 CLI Program입니다.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## 요구사항
+- 음료 주문시 [텀블러/덜 달게/우유,물 조금 옵션 선택 추가
+- 병음료,팩주스,초콜릿 구입 시 냉장고에서 바로 픽업해달라는 멘트
+- 주차 메뉴얼 (만 원부터 한 시간씩 가능)
+- 스프의 경우 7분 정도의 시간이 소요된다고 안내
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## 클래스 다이어그램
+  ![클래스다이어그램_cli](https://github.com/user-attachments/assets/90bb00e4-e9c5-4101-b9f2-b0a793b16832)
