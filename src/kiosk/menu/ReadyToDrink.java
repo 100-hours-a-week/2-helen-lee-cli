@@ -1,4 +1,4 @@
-package menu;
+package kiosk.menu;
 
 public class ReadyToDrink extends MenuItem {
 

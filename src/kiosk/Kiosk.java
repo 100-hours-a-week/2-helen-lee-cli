@@ -1,9 +1,9 @@
+package kiosk;
 import java.util.Scanner;
-
 import kiosk.menu.*;
 import kiosk.order.Order;
 
-public class kiosk {
+public class Kiosk {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         Order order = new Order();

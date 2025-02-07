@@ -1,6 +1,7 @@
-package order;
-import menu.*;
+package kiosk.order;
 import java.util.ArrayList;
+
+import kiosk.menu.*;
 
 public class Order {
     private ArrayList<MenuItem> orderList;
