@@ -94,28 +94,31 @@ public class Kiosk {
         }
 
     private static void showNonCoffeeMenu(Scanner scanner, Order order) {
+        Map<Integer, Drink> nonCoffeeMenu = new HashMap<>();
+        nonCoffeeMenu.put(1, new Drink("핫 말차라떼", 4000));
+        nonCoffeeMenu.put(2, new Drink("아이스 말차라떼", 4000));
+        nonCoffeeMenu.put(3, new Drink("핫 밀크티", 4000));
+        nonCoffeeMenu.put(4, new Drink("아이스 밀크티", 4000));
+
         System.out.println("\n[논커피 메뉴]");
-        System.out.println("1. 핫 말차라떼 (4000원)");
-        System.out.println("2. 아이스 말차라떼 (4000원)");
-        System.out.println("3. 핫 밀크티 (4000원)");
-        System.out.println("4. 아이스 밀크티 (4000원)");
+        nonCoffeeMenu.forEach((key, value) ->
+            System.out.println(key + ". " + value.getName() + " (" + value.getPrice() + "원)")
+        );
+
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        Drink selectedDrink = nonCoffeeMenu.get(choice);
 
-        switch(choice) {
-            case 1:  order.addItem(new Drink("핫 말차라떼", 4000)); break;
-            case 2:  order.addItem(new Drink("아이스 말차라떼", 4000)); break;
-            case 3:  order.addItem(new Drink("핫 밀크티", 4000)); break;
-            case 4:  order.addItem(new Drink("아이스 밀크티", 4000)); break;
-
+        if (selectedDrink != null) {
+            order.addItem(selectedDrink);
+        } else {
+            System.out.println("잘못된 선택입니다.");
         }
 
     }
 
     private static void showReadyToDrinkMenu(Scanner scanner, Order order) {
-
         // 아이스컵 선택 필요 
-
         System.out.println("\n[병음료/팩 주스]");
         System.out.println("1. 맘스초이스 어린이 사과주스 (1800원)");
         System.out.println("2. 복숭아 소다 (4000원)");
@@ -144,18 +147,25 @@ public class Kiosk {
     }
 
     private static void showFoodMenu(Scanner scanner, Order order) {
+        Map<Integer, Food> FoodMenu = new HashMap<>();
+
+        FoodMenu.put(1,new Soup("양송이스프", 4000));
+        FoodMenu.put(2,new Bread("반미바게트", 4000));
+        FoodMenu.put(3,new Bread("크로와상", 4000));
+
         System.out.println("\n[푸드 메뉴]");
-        System.out.println("1. 양송이스프 (4000원)");
-        System.out.println("2. 반미바게트 (4000원)");
-        System.out.println("3. 크로와상 (4000원)");
+        FoodMenu.forEach((key, value) ->
+            System.out.println(key + ". " + value.getName() + " (" + value.getPrice() + "원)")
+        );
 
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        Food selectedFood = FoodMenu.get(choice);
 
-        switch(choice) {
-            case 1:  order.addItem(new Soup("양송이스프", 4000)); break;
-            case 2:  order.addItem(new Bread("반미바게트", 4000)); break;
-            case 3:  order.addItem(new Bread("크로와상", 4000)); break;
+        if (selectedFood != null) {
+            order.addItem(selectedFood);
+        } else {
+            System.out.println("잘못된 선택입니다.");
         }
 
     }
