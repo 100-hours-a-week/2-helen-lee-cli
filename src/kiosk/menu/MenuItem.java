@@ -1,6 +1,6 @@
 package kiosk.menu;
 
-public class MenuItem {
+public abstract class MenuItem {
     protected String name;
     protected int price;
 

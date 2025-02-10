@@ -26,6 +26,8 @@ public class Order {
         }
 
         System.out.println("\n=== 🛒 주문 내역 ===");
+
+
         for (MenuItem item : orderList) {
             item.displayInfo();
         }
@@ -44,16 +46,8 @@ public class Order {
 
         // 즉시 픽업 음료 메시지 출력
         for (MenuItem item : orderList) {
-            if (item instanceof ReadyToDrink) {
-                ((ReadyToDrink)item).pickupMessage();
-            }
-
-            if (item instanceof Dessert) {
-                ((Dessert)item).pickupMessage();
-            }
-
-            if (item instanceof Soup) {
-                ((Soup)item).showMessage();
+            if (item instanceof PickupItem pickupItem) {
+               pickupItem.showPickupMessage();
             }
         }
 

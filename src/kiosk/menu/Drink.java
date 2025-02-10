@@ -1,26 +1,24 @@
 package kiosk.menu;
+import java.util.EnumSet;
 
 public class Drink extends MenuItem {
-    private boolean lessSugar;
-    private boolean isTumbler;
-    private boolean lessMilkOrWater;
+    private EnumSet<Option> options = EnumSet.noneOf(Option.class);
 
     public Drink (String name, int price) {
         super(name, price);
     }
 
-    public void setOptions(boolean lessSugar, boolean useTumbler, boolean lessMilkOrWater) {
-        this.lessSugar = lessSugar;
-        this.isTumbler = useTumbler;
-        this.lessMilkOrWater = lessMilkOrWater;
+    public void setOptions(EnumSet<Option> options) {
+        this.options = options;
     }
 
     @Override
     public void displayInfo() {
-        super.displayInfo();
-        if (lessSugar) System.out.println("  ▶ 덜 달게");
-        if (isTumbler) System.out.println("  ▶ 텀블러 사용");
-        if (lessMilkOrWater) System.out.println("  ▶ 우유/물 적게");
+    
+        System.out.println(name + "/" + price + "원");
+        for (Option option : options) {
+            System.out.println("  ▶ " + option.getDescription());
+        } 
     }
 
 }

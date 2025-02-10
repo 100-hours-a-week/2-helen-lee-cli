@@ -1,4 +1,7 @@
 package kiosk;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import kiosk.menu.*;
 import kiosk.order.Order;
@@ -21,13 +24,14 @@ public class Kiosk {
             int category = scanner.nextInt();
 
             if (category == 6) {
+                order.displayOrder();
                 order.checkout();
                 break;
             }
 
             if (category == 0) break; // 종료 
             
-            switch(category) {
+            switch (category) {
                 case 1: showCoffeeMenu(scanner, order); break;
                 case 2: showNonCoffeeMenu(scanner, order); break;
                 case 3: showReadyToDrinkMenu(scanner, order); break;
@@ -42,29 +46,52 @@ public class Kiosk {
 
     }
 
-
     private static void showCoffeeMenu(Scanner scanner, Order order) {
+
+        EnumSet<Option> options = EnumSet.noneOf(Option.class);
+
+        Map<Integer, Drink> coffeeMenu = new HashMap<>();
+        coffeeMenu.put(1, new Drink("핫 아메리카노", 3000));
+        coffeeMenu.put(2, new Drink("아이스 아메리카노", 4000));
+        coffeeMenu.put(3, new Drink("핫 카페라떼", 4000));
+        coffeeMenu.put(4, new Drink("아이스 카페라떼", 4000));
+
+
         System.out.println("\n[커피 메뉴]");
-        System.out.println("1. 핫 아메리카노 (3000원)");
-        System.out.println("2. 아이스 아메리카노 (3000원)");
-        System.out.println("3. 핫 카페라떼 (3500원)");
-        System.out.println("4. 아이스 카페라떼 (3500원)");
+        coffeeMenu.forEach((key, value) -> 
+            System.out.println(key + ". " + value.getName() + " (" + value.getPrice() + "원)")
+        );
+
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
-
-        switch(choice) {
-            case 1:  order.addItem(new Drink("핫 아메리카노", 3000)); break;
-            case 2:  order.addItem(new Drink("아이스 아메리카노", 3000)); break;
-            case 3:  order.addItem(new Drink("핫 카페라떼", 3500)); break;
-            case 4:  order.addItem(new Drink("아이스 카페라떼", 3500)); break;
-
+        Drink selectedDrink = coffeeMenu.get(choice);
+        
+        if (selectedDrink == null) {
+            System.out.println("잘못된 선택입니다.");
+            return;
         }
 
-        // System.out.print("덜 달게(1), 텀블러 사용(2), 우유/물 적게(3), 옵션 없음(0): ");
-        // int option = scanner.nextInt();
+        // 옵션 선택
+        while (true) {
+            System.out.print("덜 달게(1), 텀블러 사용(2), 우유/물 적게(3), 선택 종료(0): ");
+            int option = scanner.nextInt();
 
-        // .setOptions(option == 1, option == 2, option == 3);1
-    }
+            if (option == 0) break;
+
+            Option selectedOption = Option.fromId(option);
+            if (selectedOption != null) {
+                if (!options.add(selectedOption)) {
+                    System.out.println("이미 선택한 옵션입니다.");
+                }
+            } else {
+                System.out.println("잘못된 입력입니다. 다시 선택해주세요.");
+            }
+        }
+
+            // 선택한 음료에 옵션 설정 후 주문 추가
+            selectedDrink.setOptions(options);
+            order.addItem(selectedDrink);
+        }
 
     private static void showNonCoffeeMenu(Scanner scanner, Order order) {
         System.out.println("\n[논커피 메뉴]");
