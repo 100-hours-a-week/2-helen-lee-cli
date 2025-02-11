@@ -8,9 +8,16 @@ import kiosk.order.Order;
 
 public class Kiosk {
     public static void main(String[] args) throws Exception {
+      
+        while (true){
+            startKiosk();
+        }
+    }
+
+    // 키오스크 시작
+    private static void startKiosk() {
         Scanner scanner = new Scanner(System.in);
         Order order = new Order();
-
 
         System.out.println("안녕하세요 MOJI 이트인입니다.");
         System.out.print("매장(1), 포장(2) 여부를 선택해주세요: ");
@@ -42,7 +49,6 @@ public class Kiosk {
 
         }
 
-        scanner.close();
 
     }
 
