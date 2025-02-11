@@ -3,15 +3,19 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import kiosk.menu.*;
 import kiosk.order.Order;
 
 public class Kiosk {
+
+    private static final int TIME_OUT = 10000; // 10초 동안 입력 없을 시 메인화면 이동
+    private static Timer timer = new Timer();
+
     public static void main(String[] args) throws Exception {
-      
-        while (true){
-            startKiosk();
-        }
+      startKiosk();
     }
 
     // 키오스크 시작
@@ -19,6 +23,7 @@ public class Kiosk {
         Scanner scanner = new Scanner(System.in);
         Order order = new Order();
 
+        startTimer();
         System.out.println("안녕하세요 MOJI 이트인입니다.");
         System.out.print("매장(1), 포장(2) 여부를 선택해주세요: ");
         int isTakeout = scanner.nextInt();
@@ -29,6 +34,7 @@ public class Kiosk {
             System.out.println("1. 커피  2. 논커피  3. 병음료/팩 주스  4. 디저트  5. 푸드  6. 결제  0. 종료");
             System.out.print("번호 선택: ");
             int category = scanner.nextInt();
+            resetTimer();
 
             if (category == 6) {
                 order.displayOrder();
@@ -48,8 +54,23 @@ public class Kiosk {
             }
 
         }
+    }
 
+    private static void startTimer() {
+        timer.cancel(); // 기존 타이머 취소
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("\n시간 초과! 첫 화면으로 돌아갑니다.");
+                startKiosk();
+            }
+        }, TIME_OUT);
+    }
 
+    // 사용자 입력이 감지되면 타이머 리셋
+    private static void resetTimer() {
+        startTimer();
     }
 
     private static void showCoffeeMenu(Scanner scanner, Order order) {
@@ -70,6 +91,7 @@ public class Kiosk {
 
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        resetTimer();
         Drink selectedDrink = coffeeMenu.get(choice);
         
         if (selectedDrink == null) {
@@ -81,6 +103,7 @@ public class Kiosk {
         while (true) {
             System.out.print("덜 달게(1), 텀블러 사용(2), 우유/물 적게(3), 선택 종료(0): ");
             int option = scanner.nextInt();
+            resetTimer();
 
             if (option == 0) break;
 
@@ -113,6 +136,7 @@ public class Kiosk {
 
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        resetTimer();
         Drink selectedDrink = nonCoffeeMenu.get(choice);
 
         if (selectedDrink != null) {
@@ -130,10 +154,12 @@ public class Kiosk {
         System.out.println("2. 복숭아 소다 (4000원)");
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        resetTimer();
 
         String name = choice == 1 ? "맘스초이스 어린이 사과주스" : "복숭아 소다";
         System.out.print("아이스컵이 필요(1), 필요 없음(0): ");
         int needsIceCup = scanner.nextInt();
+        resetTimer();
 
         order.addItem(new ReadyToDrink(name, choice == 1 ? 1800 : 4000,needsIceCup == 1 ? true : false));
     }
@@ -144,6 +170,7 @@ public class Kiosk {
         System.out.println("2. 피넛초콜릿 (4900원)");
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        resetTimer();
 
         switch(choice) {
             case 1:  order.addItem(new Dessert("소프트아이스크림", 3500)); break;
@@ -166,6 +193,7 @@ public class Kiosk {
 
         System.out.print("번호 선택: ");
         int choice = scanner.nextInt();
+        resetTimer();
         Food selectedFood = FoodMenu.get(choice);
 
         if (selectedFood != null) {
