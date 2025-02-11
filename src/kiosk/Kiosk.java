@@ -24,7 +24,7 @@ public class Kiosk {
         Order order = new Order();
 
         startTimer();
-        System.out.println("안녕하세요 MOJI 이트인입니다.");
+        System.out.println("\n☕안녕하세요 MOJI 이트인입니다☕\n");
         System.out.print("매장(1), 포장(2) 여부를 선택해주세요: ");
         int isTakeout = scanner.nextInt();
         System.out.println(isTakeout == 2 ? "포장을 선택하셨습니다" : "매장을 선택하셨습니다");
@@ -56,6 +56,7 @@ public class Kiosk {
         }
     }
 
+    // 타이머 초기화
     private static void startTimer() {
         timer.cancel(); // 기존 타이머 취소
         timer = new Timer();
@@ -73,6 +74,7 @@ public class Kiosk {
         startTimer();
     }
 
+    // 커피 메뉴판
     private static void showCoffeeMenu(Scanner scanner, Order order) {
 
         EnumSet<Option> options = EnumSet.noneOf(Option.class);
@@ -122,6 +124,7 @@ public class Kiosk {
             order.addItem(selectedDrink);
         }
 
+    // 논커피 메뉴판
     private static void showNonCoffeeMenu(Scanner scanner, Order order) {
         Map<Integer, Drink> nonCoffeeMenu = new HashMap<>();
         nonCoffeeMenu.put(1, new Drink("핫 말차라떼", 4000));
@@ -147,6 +150,7 @@ public class Kiosk {
 
     }
 
+    // 병음료, 팩주스 메뉴판
     private static void showReadyToDrinkMenu(Scanner scanner, Order order) {
         // 아이스컵 선택 필요 
         System.out.println("\n[병음료/팩 주스]");
@@ -164,6 +168,7 @@ public class Kiosk {
         order.addItem(new ReadyToDrink(name, choice == 1 ? 1800 : 4000,needsIceCup == 1 ? true : false));
     }
 
+    // 디저트 메뉴판
     private static void showDessertMenu(Scanner scanner, Order order) {
         System.out.println("\n[디저트 메뉴]");
         System.out.println("1. 소프트아이스크림 (3500원)");
@@ -179,6 +184,7 @@ public class Kiosk {
 
     }
 
+    // 푸드 메뉴판
     private static void showFoodMenu(Scanner scanner, Order order) {
         Map<Integer, Food> FoodMenu = new HashMap<>();
 
